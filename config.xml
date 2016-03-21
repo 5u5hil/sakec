@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<widget xmlns="http://www.w3.org/ns/widgets"  xmlns:gap="http://phonegap.com/ns/1.0" id="com.kes.health" version="0.0.3">
+<widget xmlns="http://www.w3.org/ns/widgets"  xmlns:gap="http://phonegap.com/ns/1.0" id="com.sakec.health" version="0.0.3">
  
-    <name>KES Health</name>
+    <name>SAKEC Health</name>
     <preference name="orientation" value="portrait" />
     <preference name="fullscreen" value="false" />
 	<preference name="SplashScreen" value="splash" />
