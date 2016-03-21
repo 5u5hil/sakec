@@ -1,0 +1,60 @@
+<ion-view cache-view="false"  class="records-view">
+    <ion-nav-title>
+        <span>Consultations</span>
+    </ion-nav-title>
+    <ion-content>
+		<div class="row tabnav">
+			<div class="col"><a nav-clear menu-close ui-sref="app.consultations-list" >Book</a></div>
+		<div class="col"><a nav-clear menu-close ui-sref="app.consultations-current" >Active</a></div>
+		<div class="col"><a nav-clear menu-close ui-sref="app.consultations-past" class="active">Past</a></div>
+		 </div>
+		 
+		 
+		 <div class="" ng-if="userLogged = 1">
+		 <div class="page-data">
+				<div class="row tabnav">
+				<div class="col"><a ui-sref="#"  class="active">Video : {{video_app_past.length}}</a></div>
+				</div>	 
+
+				<div class="tabcontainer p0" >
+				<p class="txt-center">  {{video_app_past.length==0 ? 'Nothing to see here. Book a consult to get going.':''}}</p>
+				<div class="posts-list" ng-repeat="vAppPast in video_app_past track by $index">
+				<div  class="list card post-item" ng-repeat="prod_past in video_products_past[$index]">
+				<div class="post-content item item-text-wrap p0">
+				<div class="card-content paraspacing" ng-repeat="doc_past in video_doctorsData_past[$index]">
+				<p><strong>{{doc_past.fname}} {{doc_past.lname}}</strong><br/>
+				<span ng-repeat="spec in doc_past.specializations">
+				{{spec.specialization}} , 
+				</span>
+				</p>
+				<p><strong>Appointment Time : {{vAppPast.appointments.scheduled_start_time|dateFormat3}}</strong><br/> 
+				<span>{{vAppPast.appointments.scheduled_start_time|time}} To {{vAppPast.appointments.scheduled_end_time|time}}
+				</span>
+				</p>
+				<div class="clr"></div>
+				</div>
+				<div class="post-actions  post-footer p0">
+				<div class="row cardbtn-small p0">
+				<div class="cardpast-bar {{vAppPast.appointments.status==3 ?'fgreen':'fred'}}"><i class="{{vAppPast.appointments.status==3 ?'ion-checkmark':'ion-close'}}"></i> {{vAppPast.appointments.status==4 ? 'Cancelled':''}}
+				{{vAppPast.appointments.status==6 ? 'Patient no-show':''}}
+				{{vAppPast.appointments.status==7 ? 'Doctor no-show':''}}
+				{{vAppPast.appointments.status==3 ? 'Consulted':''}}
+
+				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+				</div>
+
+				</div>
+
+</div>
+</div>
+                                   
+								   
+								   
+							
+    </ion-content>
+</ion-view>
+

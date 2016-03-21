@@ -1,0 +1,98 @@
+<ion-view cache-view="false" class="records-view">
+    <ion-nav-title>
+        <span>{{spec[0].specialization}}</span>
+    </ion-nav-title>
+    <!--  <ion-nav-buttons side="right">
+         <button class="button button-icon button-clear ion-person">
+         </button>
+     </ion-nav-buttons>
+     <div class="bar bar-subheader cbar divider-2">
+         <div class="row">
+             <div class="col-50"><a  ui-sref="app.filter"><h4 class="subhead"><i class="icon ion-funnel"></i> Filter</h4></a></div>
+             <div class="col-50"><h4 class="subhead">Sort <i class="icon ion-ios-arrow-thin-down"></i></h4> </div>
+         </div>
+     </div> -->
+    <ion-content>
+        <div class="list consultview">
+            <h4>{{doctors.length==0?'No Doctors': ''}} </h4>
+            <div class="posts-list" ng-repeat="doc in doctors track by $index">
+                <div  class="list card post-item">
+                    <div class="post-content item item-text-wrap p0">
+                        <a ui-sref="app.consultation-profile({'id' : doc.id, 'res' : 'json'})" class="card-content" >
+                            <div ng-if="doc.doctorpresense.presence == '1'" class="drstatus">Online</div>
+                            <!--  <div class="rating"><i class="ion-star active"></i> <i class="ion-star active"></i> <i class="ion-star active"></i> <i class="ion-star"></i> <i class="ion-star"></i></br>15 Reviews</div> -->
+                            <div class="card-left">	
+                                <img class="user-image-circle" ng-if="doc.image != ''" ng-src="{{imgpath}}{{doc.image}}"><img class="user-image-circle" ng-if="doc.image == ''" ng-src="img/default-user.jpg">
+                            </div>
+                            <div class="card-detail txt-left">
+                                <p><strong>{{doc.fname}} {{doc.lname}}
+                                   
+                                    </strong><br/>
+                                    <span ng-repeat="spec in doc.specializations">
+                                        {{spec.specialization}}{{$last==true? '': ',&nbsp;'}} 
+                                    </span></p>
+                            </div>
+                            <div class="row txt-left">
+                                <div class="col"><p><strong>Experience</strong><br/>{{doc.exp}}</p></div>	
+                                <div class="col"><p><strong>Qualification</strong><br/>
+                                        <span ng-repeat="qual in doc.qualifications">{{qual.qualification}}{{$last==true? '': ',&nbsp;'}}</span></p></div>	
+                            </div>
+                            <div class="row txt-left">
+                                <div class="col"><p><strong>Languages</strong><br/><span ng-repeat="lang in doc.languages">
+                                            {{lang.language}}{{$last==true? '': ',&nbsp;'}}
+                                        </span></p></div>	
+                                <div class="col"><p><strong>Focus Area</strong><br/>
+                                        <span ng-repeat="focus in doc.focuses">
+                                            {{focus.focus}}{{$last==true? '': ',&nbsp;'}}
+                                        </span></p></div>	
+                            </div>
+                            <div class="clr"></div>
+                        </a>
+                        <a ui-sref="app.consultation-profile({'id' : doc.id, 'res' : 'json'})" class="staticlink">
+                            <div class="post-actions row post-footer">
+                                <div class="row cardbtn">
+                                    <div class="col" ng-repeat="serv in docServices[$index]">
+                                        <div class="cbtn" ng-if="serv.service_id == 1">
+                                            <i class="ion-ios-videocam f33" style="font-size:22px;"></i> 
+
+                                            <span class="f16"> &nbsp; INR {{serv.price}}</span>
+                                            <span ng-if="doc.instpermission != null">	
+                                                <span ng-if="doc.instpermission.instant_permission == '1'">
+
+                                                    <i class="ion-ios-bolt" style="font-size:22px; padding-left:8px;"></i>
+                                                </span>
+                                            </span>
+
+                                        </div>
+                                        <div class="cbtn" ng-if="serv.service_id == 2">
+                                            <i class="ion-chatbubble f33" ></i> <span class="f16"> Chat</span>
+                                        </div>
+                                        <div class="cbtn" ng-if="serv.service_id == 3">
+                                            <i class="ion-home f33" ></i><span class="f16"> Clinic </span>
+                                        </div>
+                                        <div class="cbtn" ng-if="serv.service_id == 4">
+                                            <i class="ion-person f33" ></i> <span class="f16"> Home</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <!-- <div class="cardopt-row" ng-repeat="serv in docServices[$index]">
+                                    <div class="cardoptions" ng-if="serv.service_id == 1" style="width:100%;">
+                                        <span class="bstatus">
+                                            <i class="ion-android-done"></i>
+                                        </span>
+                                        {{serv.service_id == 1? 'Video': ''}}
+                                    </div>                                
+                                                            </div> -->
+
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,79 @@
+<ion-view class="records-view">
+    <ion-nav-title>
+        <span>{{doctor[0].fname}} {{doctor[0].lname}}</span>
+    </ion-nav-title>
+    <!-- <ion-nav-buttons side="right">
+        <button class="button button-icon button-clear ion-person">
+        </button>
+    </ion-nav-buttons> -->
+    <div ng-repeat="doc in doctor">
+        <div class="profile-head">
+            <div class="card-content">
+                
+                <div class="card-left">	<img class="user-image-circle" ng-src="https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg"></div>
+                <div class="card-detail txt-left">
+                    <p><strong>{{doc.fname}} {{doc.lname}}</strong><br/>
+                        <span ng-repeat="spec in doc.specializations">
+                            {{spec.specialization}}{{$last==true? '': ',&nbsp;'}}
+                        </span></p>
+                </div>
+                <div class="clr"></div>
+            </div>
+        </div>
+    </div>
+    <ion-content>
+   
+        <div class="ctab profile" style="margin-top:114px;">
+            <ion-tabs class="tabs-positive tabs-icon-top" >
+                <div>
+                    <div>
+                        <ion-tab icon="ion-checkmark" title="{{appointment.mode==1 ? 'Video': ''}}
+                                 {{appointment.mode==2 ? 'Chat': ''}}
+                                 {{appointment.mode==3 ? 'Clinic': ''}}
+                                 {{appointment.mode==4 ? 'Home': ''}}" >
+                            <!-- Tab 1 content -->
+                            <div class="tabcontainer"> 
+
+                                <ul class="clist">
+                                    <li>{{Prod.desc}}</li>
+                                    <li ng-repeat="pInc in Inc track by $index">{{pInc.mode}}, {{pInc.desc}},
+                                        <span ng-if="vInc.discount < 100">Discount : {{pInc.discount}} %</span>, {{pInc.validity_in_days}} Days
+                                    </li>
+                                </ul>
+
+                                <div class="clr"></div>
+                                <div class="item item-body" ng-repeat="ps in prSch track by $index">
+                                    <strong>Available on </strong>
+                                    <ul class="wk">
+                                        <li ng-repeat="day in ps.service_details| orderBy:'' | groupBy:['day_of_week']">
+                                            <strong ng-show="day.group_by_CHANGED">{{ day.day_of_week|limitTo:1}} : </strong>
+                                            {{day.from|limitTo:2}} - {{day.to|limitTo:2}}
+                                        </li>
+                                    </ul>	
+                                    <div class="sche-date">
+                                        <div class="leftarrow" ng-click="getFirstSlots(ps.supersaas_id, $index, appointment.mode)"><i class="icon ion-arrow-left-c"></i></div> 
+                                        <input type="date" ng-model="schdate[$index]" value="schdate[$index]|dateFormat1" ng-change="getNextSlots(schdate[$index], vs.supersaas_id, $index, serv)"/>
+                                        <input type="hidden" ng-model="nextdate[$index]" value="nextdate[$index]|datetime"/>
+                                        <div class="rightarrow" ng-click="getNextSlots(nextdate[$index], ps.supersaas_id, $index, app.mode)"><i class="icon ion-arrow-right-c"></i></div>
+                                    </div>
+                                    <div ng-if="schP[$index] == ps.supersaas_id">
+                                        {{pSch[$index]==''? 'No slots available':''}}
+                                        <ul class="timesheet"  ng-repeat="(key,slot) in pSch[$index]">
+                                            <li onclick="toggleclass(this);" ng-repeat="slt in slot" ng-if="slt['sdate'] < nextdate" ng-model="timeslot" ng-click="bookSlot(slt['start'][0], slt['finish'][0], ps.supersaas_id)"> 
+                                                {{slt['start'][0]|time}} - {{slt['finish'][0]|time}}                                                          
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="section-footer">                                                    
+                                    <a class="button button-full button-positive" ng-click="bookNewAppointment(Prod.id)">Book</a>
+                                    <a class="button button-full button-positive" confirmed-click="cancelReschedule()" ng-confirm-click="Do you really want to cancel reschedulling?">Cancel</a>
+                                </div>
+                            </div>
+                        </ion-tab>
+                    </div>
+                </div>
+            </ion-tabs>
+        </div>
+    </ion-content>
+</ion-view>

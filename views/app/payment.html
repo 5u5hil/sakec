@@ -1,0 +1,106 @@
+<ion-view class="payment-view">
+    <ion-nav-title>
+        <span>Payment</span>
+    </ion-nav-title>
+    <ion-content>
+        <div class="content-section">
+            <div class="list card" style="margin:0;">
+                <div class="item item-body allp" ng-repeat="doc in doctor">
+                    <p><strong> {{doc.fname}} {{doc.lname}}</strong><br/>
+                        <span ng-repeat="spec in doc.specializations">
+                            {{spec.specialization}},   
+                        </span>
+                    </p>
+                    <!--<p><strong>Qualification</strong><br/>MBBS,MD</p>-->
+                    <ul class="clist">
+                        <li ng-repeat="pro in product">{{pro.desc}}, {{pro.mode}} </li>
+                        <li ng-repeat="pInc in  prod_inclusion track by $index">{{pInc.mode}}, {{pInc.desc}},
+                            <span ng-if="pInc.discount < 100">Discount : {{pInc.discount}} %</span>, {{pInc.validity_in_days}} Days</li>
+                    </ul>
+                    <p ng-if="product[0].mode!='Chat'"><strong>Appointment Details</strong> <br/> 
+                        <span ng-if="startSlot">
+                        <strong>Date: </strong> {{startSlot | dateFormat3}} <br/>
+                        <strong>Time: </strong> {{startSlot | time}} To {{endSlot | time}}<br/>
+                        </span>
+                         <span ng-if="!startSlot">
+                            <strong>Date: </strong> {{curTime| dateFormat3}} <br/>
+                        <strong>Time: </strong> {{IVstartSlot| time}} To {{IVendSlot| time}}<br/>
+                        </span>
+                        <!---<strong>Mode: </strong> Video<br/>
+                        <strong>Address: </strong> 10AM to 11AM <br/>-->
+                    </p>
+                </div>
+            </div>
+            <div class="ctab">
+                <my-tabs class="themetabs">
+                    <my-tab title="Pay Now" ng-if="mode == 1 || mode == 2 ">
+                        <div class="tabcontainer" style="margin-top:0;">
+                            <h4 class="txt-centre" style="margin-top:10px; margin-bottom:10px;">Price: INR {{product[0].price}}</h4>
+                            <div class="row" ng-if="apply != 1">
+                                <div class="col col-75">
+                                    <input type="text" class="custominput" id='coupon' Placeholder="Enter Coupon Code" ng-model="ccode" />
+                                    <span id="coupon_error"></span>
+                                </div>
+                                <div class="col">
+                                    <button class="button button-small button-assertive csbtn" ng-click="applyCouponCode(ccode)">Apply</button>
+                                    <!-- 	<button class="button button-small button-assertive csbtn">Undo</button> -->
+                                </div>
+                            </div>
+                            <div class="fg txt-centre" ng-if="apply == 1">Applied Discount</div>
+                            <div class="pprice" ng-if="apply == 1">Final Price: INR {{product[0].price - discountApplied}}</div>
+                            <div class="section-footer"> <!---ui-sref="app.success"-->
+                                <a ng-if="mode == 1 || mode == 2 " ng-click="payNow(product[0].price - discountApplied)" class="button button-full button-positive">Pay Now</a>                                
+                            </div>
+                            <p class="agreelink">
+                                By Clicking on the button above, you agree to the <span dynamic-anchor-fix><a href="https://doctrs.in/termsandconditions.pdf" target="_blank">terms & conditions</a></span> and have read the <span dynamic-anchor-fix><a href="https://doctrs.in/privacypolicy.pdf" target="_blank">privacy policy</a> </span> & <span dynamic-anchor-fix><a href="https://doctrs.in/CancellationPolicy.pdf" target="_blank">cancellation policy.</a></span>
+                            </p>
+                        </div>
+                    </my-tab>
+                    <my-tab title="Book Now" ng-if="mode == 3 || mode == 4">
+                        <div class="tabcontainer">
+                            <div class="pprice">Price: INR {{product[0].price}}</div>
+                            <div class="row">
+                                <div class="col col-75">
+                                    <input type="text" class="custominput" Placeholder="Enter Coupon Code"  ng-model="ccode" />
+                                </div>
+                                <div class="col">
+                                    <button class="button button-small button-assertive csbtn " ng-click="applyCouponCode(ccode)">Apply</button>
+                                    <!-- 	<button class="button button-small button-assertive csbtn">Undo</button> -->
+                                    <p class="agreelink">
+                                        By Clicking on the button above, you agree to the <span dynamic-anchor-fix><a href="https://doctrs.in/termsandconditions.pdf" target="_blank">terms & conditions</a></span> and have read the <span dynamic-anchor-fix><a href="https://doctrs.in/privacypolicy.pdf" target="_blank">privacy policy</a> </span> & <span dynamic-anchor-fix><a href="https://doctrs.in/CancellationPolicy.pdf" target="_blank">cancellation policy.</a></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <p class="fg txt-centre">Applied Discount:20%</p>
+                            <h4 class="txt-centre">Final Price: INR {{product[0].price}}</h4>
+                            <br/>
+                            <div class="section-footer"> <!---ui-sref="app.success"-->
+                                <a ng-if="mode == 3 || mode == 4" ng-click="bookNow()" class="button button-full button-positive">Book Now</a>
+                            </div>	
+                        </div>
+                    </my-tab>
+                    <!-- 
+                            <my-tab title="I have Package" >
+            <div class="tabcontainer">
+                Under Construction
+            </div>
+        </my-tab> -->
+                </my-tabs>
+
+
+
+
+
+
+
+
+
+
+
+                </ion-tabs>
+            </div>
+
+        </div>
+
+    </ion-content>
+</ion-view>
